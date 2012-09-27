@@ -188,7 +188,11 @@ class Octopus::Proxy
 
   protected
   def connection_pool_for(adapter, config)
-    ActiveRecord::ConnectionAdapters::ConnectionPool.new(ActiveRecord::Base::ConnectionSpecification.new(adapter.dup, config))
+    if Octopus.rails4?
+      ActiveRecord::ConnectionAdapters::ConnectionPool.new(ActiveRecord::ConnectionAdapters::ConnectionSpecification.new(adapter.dup, config))
+    else
+      ActiveRecord::ConnectionAdapters::ConnectionPool.new(ActiveRecord::Base::ConnectionSpecification.new(adapter.dup, config))
+    end
   end
 
   def initialize_adapter(adapter)
