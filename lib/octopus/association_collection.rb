@@ -62,7 +62,7 @@ module Octopus::AssociationCollection
   end
 end
 
-if Octopus.rails31?
+if Octopus.rails31? || Octopus.rails4?
   ActiveRecord::Associations::CollectionAssociation.send(:include, Octopus::AssociationCollection)
 else
   ActiveRecord::Associations::AssociationCollection.send(:include, Octopus::AssociationCollection)
